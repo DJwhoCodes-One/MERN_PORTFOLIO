@@ -25,9 +25,30 @@ const Register = () => {
     };
 
     // handle form on submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(user);
+
+        const response = await fetch(
+            'http://localhost:8081/api/auth/register',
+            {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+        console.log(response);
+        if (response.ok) {
+            setUser(
+                {
+                    username: "",
+                    email: "",
+                    password: "",
+                }
+            )
+        }
     };
 
     return (
